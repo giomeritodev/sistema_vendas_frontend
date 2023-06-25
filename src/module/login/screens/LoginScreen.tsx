@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import Button from '../../../shared/buttons/button/button';
 import Input from '../../../shared/inputs/input/input';
+import { api } from '../../../utils/api';
 import {
   BackgroundImage,
   ContainerLogin,
@@ -12,19 +13,28 @@ import {
 } from '../styles/loginScreen.styles';
 
 const LoginScreen = () => {
-  const [username, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.target.value);
+    setEmail(event.target.value);
   };
 
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = () => {
-    alert(`Usuário: ${username} Senha: ${password}`);
+  const handleLogin = async () => {
+    const returnObject = await api
+      .post('/auth', { email, password })
+      .then((result) => {
+        alert(`Fez login ${result.data.accessToken}`);
+        return result.data;
+      })
+      .catch(() => {
+        alert('Usuário ou a senha invalidos');
+      });
+    console.log(returnObject);
   };
 
   return (
@@ -36,12 +46,7 @@ const LoginScreen = () => {
             <TitleLogin level={2} type="secondary">
               Login
             </TitleLogin>
-            <Input
-              title="USUÁRIO"
-              margin="32px 0px 0px"
-              onChange={handleUsername}
-              value={username}
-            />
+            <Input title="USUÁRIO" margin="32px 0px 0px" onChange={handleUsername} value={email} />
             <Input
               type="password"
               title="SENHA"
