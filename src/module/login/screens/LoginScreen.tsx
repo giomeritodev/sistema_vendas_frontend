@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import Button from '../../../shared/buttons/button/button';
+import SVGLogo from '../../../shared/icons/SVGLogo';
 import Input from '../../../shared/inputs/input/input';
 import { api } from '../../../utils/api';
 import {
@@ -8,7 +9,6 @@ import {
   ContainerLogin,
   ContainerLoginScreen,
   LimitedContainer,
-  LoginImage,
   TitleLogin,
 } from '../styles/loginScreen.styles';
 
@@ -42,7 +42,7 @@ const LoginScreen = () => {
       <ContainerLoginScreen>
         <ContainerLogin>
           <LimitedContainer>
-            <LoginImage src="./logo.svg" />
+            <SVGLogo />
             <TitleLogin level={2} type="secondary">
               Login
             </TitleLogin>
