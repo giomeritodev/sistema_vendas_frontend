@@ -23,7 +23,7 @@ export const UseRequests = () => {
     return returnData;
   };
 
-  const postRequest = async (url: string, body: any) => {
+  const postRequest = async (url: string, body: unknown) => {
     setLoading(true);
 
     const returnData = await axios({
