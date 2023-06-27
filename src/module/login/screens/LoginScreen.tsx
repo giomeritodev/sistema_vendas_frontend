@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import Button from '../../../shared/buttons/button/button';
-import SVGLogo from '../../../shared/icons/SVGLogo';
-import Input from '../../../shared/inputs/input/input';
-import { api } from '../../../utils/api';
+import Button from '../../../shared/components/buttons/button/button';
+import SVGLogo from '../../../shared/components/icons/SVGLogo';
+import Input from '../../../shared/components/inputs/input/input';
+import { UseRequests } from '../../../shared/hooks/useRequests';
 import {
   BackgroundImage,
   ContainerLogin,
@@ -15,6 +15,7 @@ import {
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { postRequest, loading } = UseRequests();
 
   const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -25,16 +26,7 @@ const LoginScreen = () => {
   };
 
   const handleLogin = async () => {
-    const returnObject = await api
-      .post('/auth', { email, password })
-      .then((result) => {
-        alert(`Fez login ${result.data.accessToken}`);
-        return result.data;
-      })
-      .catch(() => {
-        alert('Usuário ou a senha invalidos');
-      });
-    console.log(returnObject);
+    postRequest('http://localhost:3000/auth', { email, password });
   };
 
   return (
@@ -54,7 +46,12 @@ const LoginScreen = () => {
               onChange={handlePassword}
               value={password}
             />
-            <Button type="primary" margin="64px 0px 16px 0px" onClick={handleLogin}>
+            <Button
+              loading={loading}
+              type="primary"
+              margin="64px 0px 16px 0px"
+              onClick={handleLogin}
+            >
               ENTRAR
             </Button>
           </LimitedContainer>
