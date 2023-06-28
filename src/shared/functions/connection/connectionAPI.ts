@@ -34,19 +34,19 @@ export default class ConnectionAPI {
   }
 }
 
-export const connectionAPIGet = async <T>(url: string) => {
+export const connectionAPIGet = async (url: string) => {
   return ConnectionAPI.connect(url, MethodsEnum.GET);
 };
 
-export const connectionAPIDelete = async <T>(url: string) => {
+export const connectionAPIDelete = async (url: string) => {
   return ConnectionAPI.connect(url, MethodsEnum.DELETE);
 };
-export const connectionAPIPost = async <T>(url: string, body: unknown) => {
+export const connectionAPIPost = async (url: string, body: unknown) => {
   return ConnectionAPI.connect(url, MethodsEnum.POST, body);
 };
-export const connectionAPIPut = async <T>(url: string, body: unknown) => {
+export const connectionAPIPut = async (url: string, body: unknown) => {
   return ConnectionAPI.connect(url, MethodsEnum.PUT, body);
 };
-export const connectionAPIPatch = async <T>(url: string, body: unknown) => {
+export const connectionAPIPatch = async (url: string, body: unknown) => {
   return ConnectionAPI.connect(url, MethodsEnum.PATCH, body);
 };
