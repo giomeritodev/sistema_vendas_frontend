@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Button from '../../../shared/components/buttons/button/button';
 import SVGLogo from '../../../shared/components/icons/SVGLogo';
 import Input from '../../../shared/components/inputs/input/input';
-import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
 import { UseRequests } from '../../../shared/hooks/useRequests';
 import {
   BackgroundImage,
@@ -15,7 +14,6 @@ import {
 import { UserType } from '../types/UserType';
 
 const LoginScreen = () => {
-  const { accessToken, setAccessToken } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { postRequest, loading } = UseRequests();
@@ -28,9 +26,8 @@ const LoginScreen = () => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = async () => {
-    const user = await postRequest<UserType>('http://localhost:3000/auth', { email, password });
-    setAccessToken(user?.accessToken || '');
+  const handleLogin = () => {
+    postRequest<UserType>('http://localhost:3000/auth', { email, password });
   };
 
   return (
@@ -40,7 +37,7 @@ const LoginScreen = () => {
           <LimitedContainer>
             <SVGLogo />
             <TitleLogin level={2} type="secondary">
-              Login ({accessToken})
+              Login
             </TitleLogin>
             <Input title="USUÁRIO" margin="32px 0px 0px" onChange={handleUsername} value={email} />
             <Input
