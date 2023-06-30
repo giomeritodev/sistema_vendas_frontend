@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Button from '../../../shared/components/buttons/button/button';
 import SVGLogo from '../../../shared/components/icons/SVGLogo';
 import Input from '../../../shared/components/inputs/input/input';
-import { URL_AUTH } from '../../../shared/constants/urls';
 import { UseRequests } from '../../../shared/hooks/useRequests';
 import {
   BackgroundImage,
@@ -12,7 +11,6 @@ import {
   LimitedContainer,
   TitleLogin,
 } from '../styles/loginScreen.styles';
-import { UserType } from '../types/UserType';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
