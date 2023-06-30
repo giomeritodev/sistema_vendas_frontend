@@ -1,5 +1,3 @@
-import { NavigateFunction } from 'react-router-dom';
-
 import { UserType } from '../../../module/login/types/UserType';
 import { AUTHORIZATION_KEY } from '../../constants/authorizationConstants';
 import { URL_URSER } from '../../constants/urls';
