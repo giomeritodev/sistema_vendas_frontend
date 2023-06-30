@@ -1,11 +1,18 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import { AuthType } from '../../module/login/types/AuthType';
+import { ProductRouterEnum } from '../../module/product/routes';
+import { ERROR_INVALID_PASSWORD } from '../constants/errorsStatus';
+import { URL_AUTH } from '../constants/urls';
+import { setAuthorizationToken } from '../functions/connection/auth';
 import { connectionAPIPost } from '../functions/connection/connectionAPI';
 import { useGlobalContext } from './useGlobalContext';
 
 export const UseRequests = () => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const { setNotification } = useGlobalContext();
 
   const getRequest = async (url: string) => {
@@ -37,6 +44,7 @@ export const UseRequests = () => {
       })
       .catch((error: Error) => {
         setNotification(error.message, 'error');
+        navigate(ProductRouterEnum.PRODUCT);
         return undefined;
       });
 
@@ -44,9 +52,27 @@ export const UseRequests = () => {
     return returnData;
   };
 
+  const authRequest = async (body: unknown): Promise<void> => {
+    setLoading(true);
+
+    await connectionAPIPost<AuthType>(URL_AUTH, body)
+      .then((result) => {
+        setAuthorizationToken(result.accessToken);
+        navigate(ProductRouterEnum.PRODUCT);
+        return result;
+      })
+      .catch(() => {
+        setNotification(ERROR_INVALID_PASSWORD, 'error');
+        return undefined;
+      });
+
+    setLoading(false);
+  };
+
   return {
     loading,
     getRequest,
     postRequest,
+    authRequest,
   };
 };
