@@ -1,21 +1,25 @@
 import './index.css';
 
 import { Router as RemixRouter } from '@remix-run/router';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
 
 import { firtsScreenRoutes } from './module/FirtScreen/routes';
 import { loginRoutes } from './module/login/routes';
 import { productScreenRoutes } from './module/product/routes';
+import { verifyLoggedIn } from './shared/functions/connection/auth';
+import { useGlobalContext } from './shared/hooks/useGlobalContext';
 import { useNotification } from './shared/hooks/useNotification';
-
-const router: RemixRouter = createBrowserRouter([
-  ...firtsScreenRoutes,
-  ...loginRoutes,
-  ...productScreenRoutes,
-]);
 
 function App() {
   const { contextHolder } = useNotification();
+  const { user, setUser } = useGlobalContext();
+  const routes: RouteObject[] = [...firtsScreenRoutes, ...loginRoutes];
+  const routesLoggerIn: RouteObject[] = [...productScreenRoutes].map((route) => ({
+    ...route,
+    loader: () => verifyLoggedIn(setUser, user),
+  }));
+
+  const router: RemixRouter = createBrowserRouter([...routes, ...routesLoggerIn]);
 
   return (
     <>

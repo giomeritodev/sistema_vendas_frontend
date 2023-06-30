@@ -13,7 +13,7 @@ import { useGlobalContext } from './useGlobalContext';
 export const UseRequests = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { setNotification } = useGlobalContext();
+  const { setNotification, setUser } = useGlobalContext();
 
   const getRequest = async (url: string) => {
     setLoading(true);
@@ -57,6 +57,7 @@ export const UseRequests = () => {
 
     await connectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {
+        setUser(result.user);
         setAuthorizationToken(result.accessToken);
         navigate(ProductRouterEnum.PRODUCT);
         return result;
