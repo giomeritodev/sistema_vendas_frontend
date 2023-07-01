@@ -41,24 +41,6 @@ export const UseRequests = () => {
     return returnObject;
   };
 
-  const postRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
-    setLoading(true);
-
-    const returnData = await connectionAPIPost<T>(url, body)
-      .then((result) => {
-        setNotification('Fez login', 'success');
-        return result;
-      })
-      .catch((error: Error) => {
-        setNotification(error.message, 'error');
-        navigate(ProductRouterEnum.PRODUCT);
-        return undefined;
-      });
-
-    setLoading(false);
-    return returnData;
-  };
-
   const authRequest = async (body: unknown): Promise<void> => {
     setLoading(true);
 
@@ -80,7 +62,6 @@ export const UseRequests = () => {
   return {
     loading,
     request,
-    postRequest,
     authRequest,
   };
 };
