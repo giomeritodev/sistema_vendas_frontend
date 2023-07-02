@@ -12,7 +12,7 @@ const FirstScreen = () => {
     if (user) {
       navigate(ProductRouterEnum.PRODUCT);
     }
-  }, []);
+  }, [user]);
 
   return <Spin />;
 };
