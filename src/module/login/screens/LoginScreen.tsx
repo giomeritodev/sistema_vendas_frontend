@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import Button from '../../../shared/components/buttons/button/button';
 import SVGLogo from '../../../shared/components/icons/SVGLogo';
-import Input from '../../../shared/components/inputs/input/input';
+import Input from '../../../shared/components/inputs/input/Input';
 import { UseRequests } from '../../../shared/hooks/useRequests';
 import {
   BackgroundImage,
