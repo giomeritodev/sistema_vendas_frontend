@@ -22,6 +22,11 @@ const ProductInsert = () => {
     name: '',
     price: 0,
     image: '',
+    weight: 0,
+    length: 0,
+    height: 0,
+    width: 0,
+    diameter: 0,
   });
   const { categories, setCategories } = useDataContext();
   const { setNotification } = useGlobalContext();
@@ -113,6 +118,41 @@ const ProductInsert = () => {
               value: `${category.id}`,
               label: `${category.name}`,
             }))}
+          />
+          <Input
+            onChange={(event) => onChange(event, 'weight', true)}
+            value={product.weight}
+            margin="0px 0px 16px 0px"
+            title="Peso"
+            placeholder="Peso do item"
+          />
+          <Input
+            onChange={(event) => onChange(event, 'length', true)}
+            value={product.length}
+            margin="0px 0px 16px 0px"
+            title="Comprimento"
+            placeholder="Comprimento do item"
+          />
+          <Input
+            onChange={(event) => onChange(event, 'height', true)}
+            value={product.height}
+            margin="0px 0px 16px 0px"
+            title="Altura"
+            placeholder="Altura do item"
+          />
+          <Input
+            onChange={(event) => onChange(event, 'width', true)}
+            value={product.width}
+            margin="0px 0px 16px 0px"
+            title="Largura"
+            placeholder="Largura do item"
+          />
+          <Input
+            onChange={(event) => onChange(event, 'diameter', true)}
+            value={product.diameter}
+            margin="0px 0px 16px 0px"
+            title="Diâmetro"
+            placeholder="Diâmetro do item"
           />
           <DisplayFlexJustifyRight>
             <LimitedContainer margin="0px 16px" width={120}>
