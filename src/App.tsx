@@ -9,7 +9,7 @@ import { loginRoutes } from './module/login/routes';
 import { productScreenRoutes } from './module/product/routes';
 import { URL_URSER } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enum';
-import { verifyLoggedIn } from './shared/functions/connection/auth';
+import { getAuthorizationToken, verifyLoggedIn } from './shared/functions/connection/auth';
 import { useGlobalContext } from './shared/hooks/useGlobalContext';
 import { useNotification } from './shared/hooks/useNotification';
 import { UseRequests } from './shared/hooks/useRequests';
@@ -30,7 +30,10 @@ function App() {
   const { request } = UseRequests();
 
   useEffect(() => {
-    request(URL_URSER, MethodsEnum.GET, setUser);
+    const token = getAuthorizationToken();
+    if (token) {
+      request(URL_URSER, MethodsEnum.GET, setUser);
+    }
   }, []);
 
   return (
