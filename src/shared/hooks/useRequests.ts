@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { AuthType } from '../../module/login/types/AuthType';
-import { ProductRouterEnum } from '../../module/product/routes';
 import { ERROR_INVALID_PASSWORD } from '../constants/errorsStatus';
 import { URL_AUTH } from '../constants/urls';
 import { setAuthorizationToken } from '../functions/connection/auth';
