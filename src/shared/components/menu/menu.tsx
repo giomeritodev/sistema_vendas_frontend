@@ -10,6 +10,7 @@ import { Menu as MenuAntd } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { CategoryRouterEnum } from '../../../module/category/routes';
 import { ProductRouterEnum } from '../../../module/product/routes';
 import { ContainerLogoName, ContainerMenu, LogoMenu, NameCompany } from './menu.style';
 
@@ -50,12 +51,12 @@ const Menu = () => {
         {
           key: 'category_view',
           label: 'Visualizar',
-          onClick: () => navigate(''),
+          onClick: () => navigate(CategoryRouterEnum.CATEGORY),
         },
         {
           key: 'category_insert',
           label: 'Inserir',
-          onClick: () => navigate(''),
+          onClick: () => navigate(CategoryRouterEnum.CATEGORY_INSERT),
         },
       ],
     },

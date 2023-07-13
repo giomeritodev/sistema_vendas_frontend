@@ -4,6 +4,7 @@ import { Router as RemixRouter } from '@remix-run/router';
 import { useEffect } from 'react';
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
 
+import { categoryScreenRoutes } from './module/category/routes';
 import { firtsScreenRoutes } from './module/firtScreen/routes';
 import { loginRoutes } from './module/login/routes';
 import { productScreenRoutes } from './module/product/routes';
@@ -15,12 +16,14 @@ import { useNotification } from './shared/hooks/useNotification';
 import { UseRequests } from './shared/hooks/useRequests';
 
 const routes: RouteObject[] = [...loginRoutes];
-const routesLoggerIn: RouteObject[] = [...firtsScreenRoutes, ...productScreenRoutes].map(
-  (route) => ({
-    ...route,
-    loader: verifyLoggedIn,
-  }),
-);
+const routesLoggerIn: RouteObject[] = [
+  ...firtsScreenRoutes,
+  ...categoryScreenRoutes,
+  ...productScreenRoutes,
+].map((route) => ({
+  ...route,
+  loader: verifyLoggedIn,
+}));
 
 const router: RemixRouter = createBrowserRouter([...routes, ...routesLoggerIn]);
 
