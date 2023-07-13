@@ -41,14 +41,13 @@ export const UseRequests = () => {
   };
 
   const authRequest = async (body: unknown): Promise<void> => {
-    const navigate = useNavigate();
     setLoading(true);
 
     await connectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {
         setUser(result.user);
         setAuthorizationToken(result.accessToken);
-        navigate(ProductRouterEnum.PRODUCT);
+        location.href = '/';
         return result;
       })
       .catch(() => {
