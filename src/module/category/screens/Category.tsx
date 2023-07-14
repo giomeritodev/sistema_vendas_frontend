@@ -37,14 +37,7 @@ const Category = () => {
   const { categories } = useCategory();
   const navigate = useNavigate();
 
-  const onSearch = (value: string) => {
-    /*
-    if (!value) {
-      setProductsFiltered([...products]);
-    } else {
-      setProductsFiltered([...productsFiltered.filter((product) => product.name.includes(value))]);
-    }*/
-  };
+  const onSearch = () => null;
 
   const handleOnClickInsert = () => {
     navigate(CategoryRouterEnum.CATEGORY_INSERT);
