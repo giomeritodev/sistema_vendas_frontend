@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CategoryRouterEnum } from '../../../module/category/routes';
+import { OrderRoutesEnum } from '../../../module/orders/router';
 import { ProductRouterEnum } from '../../../module/product/routes';
 import { ContainerLogoName, ContainerMenu, LogoMenu, NameCompany } from './menu.style';
 
@@ -68,7 +69,7 @@ const Menu = () => {
         {
           key: 'order_view',
           label: 'Visualizar',
-          onClick: () => navigate(''),
+          onClick: () => navigate(OrderRoutesEnum.ORDER),
         },
         {
           key: 'order_insert',
