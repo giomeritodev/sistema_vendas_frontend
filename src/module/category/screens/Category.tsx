@@ -34,10 +34,8 @@ const columns: ColumnsType<CategoryType> = [
 ];
 
 const Category = () => {
-  const { categories } = useCategory();
+  const { categories, handleOnChangeSearch } = useCategory();
   const navigate = useNavigate();
-
-  const onSearch = () => null;
 
   const handleOnClickInsert = () => {
     navigate(CategoryRouterEnum.CATEGORY_INSERT);
@@ -56,7 +54,7 @@ const Category = () => {
     >
       <DisplayFlexJustifyBetween margin="0px 0px 16px 0px">
         <LimitedContainer width={240}>
-          <Search placeholder="input search text" onSearch={onSearch} enterButton />
+          <Search placeholder="input search text" onSearch={handleOnChangeSearch} enterButton />
         </LimitedContainer>
 
         <LimitedContainer width={120}>
