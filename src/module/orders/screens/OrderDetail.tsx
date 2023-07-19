@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import Screen from '../../../shared/components/screen/Screen';
 import { DisplayFlexJustifyCenter } from '../../../shared/components/styles/display.style';
+import { convertNumberToMoney } from '../../../shared/functions/money';
+import ListOrderProducts from '../components/ListOrderProduct';
 import { useOrderDetail } from '../hooks/useOrderDetail';
 import { OrderRoutesEnum } from '../router';
 
@@ -51,13 +53,13 @@ const OrderDetail = () => {
           {/** Dados do pagamento */}
           <Descriptions title="Dados do pagamento" bordered>
             <Descriptions.Item label="Preço" span={2}>
-              {order?.payment?.price}
+              {convertNumberToMoney(order?.payment?.price || 0)}
             </Descriptions.Item>
             <Descriptions.Item label="Desconto" span={2}>
-              {order?.payment?.discount}
+              {convertNumberToMoney(order?.payment?.discount || 0)}
             </Descriptions.Item>
             <Descriptions.Item label="Preço Final" span={2}>
-              {order?.payment?.finalPrice}
+              {convertNumberToMoney(order?.payment?.finalPrice || 0)}
             </Descriptions.Item>
             <Descriptions.Item label="Tipo de Pagamento">{order?.payment?.type}</Descriptions.Item>
             <Descriptions.Item label="Status">
@@ -67,35 +69,24 @@ const OrderDetail = () => {
           <Divider />
           {/** Dados do endereço */}
           <Descriptions title="Dados do endereço" bordered>
-            <Descriptions.Item label="Nome" span={2}>
-              Giomerito Alves de Souza
+            <Descriptions.Item label="Cidade" span={2}>
+              {order?.address?.city?.name}
             </Descriptions.Item>
-            <Descriptions.Item label="Email" span={2}>
-              giomerito.dev@gmail.com
+            <Descriptions.Item label="Estado">
+              {order?.address?.city?.state?.name}
             </Descriptions.Item>
-            <Descriptions.Item label="Telefone" span={2}>
-              (77)9 9966-6600
+            <Descriptions.Item label="Rua" span={2}>
+              Nome da Rua
             </Descriptions.Item>
-            <Descriptions.Item label="CPF" span={2}>
-              014.209.555-94
+            <Descriptions.Item label="Complemento" span={2}>
+              {order?.address?.complement}
             </Descriptions.Item>
+            <Descriptions.Item label="Número">{order?.address?.numberAddress}</Descriptions.Item>
+            <Descriptions.Item label="CEP">{order?.address?.cep}</Descriptions.Item>
           </Descriptions>
           <Divider />
           {/** Produtos */}
-          <Descriptions title="Produtos" bordered>
-            <Descriptions.Item label="Nome" span={2}>
-              Giomerito Alves de Souza
-            </Descriptions.Item>
-            <Descriptions.Item label="Email" span={2}>
-              giomerito.dev@gmail.com
-            </Descriptions.Item>
-            <Descriptions.Item label="Telefone" span={2}>
-              (77)9 9966-6600
-            </Descriptions.Item>
-            <Descriptions.Item label="CPF" span={2}>
-              014.209.555-94
-            </Descriptions.Item>
-          </Descriptions>
+          <ListOrderProducts ordersProduct={order.ordersProduct} />
         </>
       )}
     </Screen>
