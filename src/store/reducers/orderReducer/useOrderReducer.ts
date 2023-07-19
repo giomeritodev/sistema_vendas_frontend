@@ -2,18 +2,24 @@ import { useDispatch } from 'react-redux';
 
 import { OrderType } from '../../../shared/types/OrderType';
 import { useAppSelector } from '../../hooks';
-import { setOrdersAction } from '.';
+import { setOrderAction, setOrdersAction } from '.';
 
 export const useOrderReducer = () => {
   const dispatch = useDispatch();
-  const { orders } = useAppSelector((store) => store.orderReducer);
+  const { orders, order } = useAppSelector((store) => store.orderReducer);
 
-  const setOrders = (currentOrders: OrderType[]) => {
-    dispatch(setOrdersAction(currentOrders));
+  const setOrders = (orders: OrderType[]) => {
+    dispatch(setOrdersAction(orders));
+  };
+
+  const setOrder = (order: OrderType) => {
+    dispatch(setOrderAction(order));
   };
 
   return {
+    order,
     orders,
     setOrders,
+    setOrder,
   };
 };
