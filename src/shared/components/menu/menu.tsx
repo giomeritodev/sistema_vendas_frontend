@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { CategoryRouterEnum } from '../../../module/category/routes';
 import { OrderRoutesEnum } from '../../../module/orders/router';
 import { ProductRouterEnum } from '../../../module/product/routes';
+import { UserRouterEnum } from '../../../module/user/routes';
 import { ContainerLogoName, ContainerMenu, LogoMenu, NameCompany } from './menu.style';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -86,7 +87,7 @@ const Menu = () => {
         {
           key: 'clients_view',
           label: 'Visualizar',
-          onClick: () => navigate(''),
+          onClick: () => navigate(UserRouterEnum.USER_ALL),
         },
         {
           key: 'clients_insert',

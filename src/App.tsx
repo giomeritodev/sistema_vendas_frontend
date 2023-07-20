@@ -9,7 +9,8 @@ import { firtsScreenRoutes } from './module/firtScreen/routes';
 import { loginRoutes } from './module/login/routes';
 import { orderScreensRouters } from './module/orders/router';
 import { productScreenRoutes } from './module/product/routes';
-import { URL_URSER } from './shared/constants/urls';
+import { userScreenRoutes } from './module/user/routes';
+import { URL_USER } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enum';
 import { getAuthorizationToken, verifyLoggedIn } from './shared/functions/connection/auth';
 import { useNotification } from './shared/hooks/useNotification';
@@ -22,6 +23,7 @@ const routesLoggerIn: RouteObject[] = [
   ...categoryScreenRoutes,
   ...productScreenRoutes,
   ...orderScreensRouters,
+  ...userScreenRoutes,
 ].map((route) => ({
   ...route,
   loader: verifyLoggedIn,
@@ -37,7 +39,7 @@ function App() {
   useEffect(() => {
     const token = getAuthorizationToken();
     if (token) {
-      request(URL_URSER, MethodsEnum.GET, setUser);
+      request(URL_USER, MethodsEnum.GET, setUser);
     }
   }, []);
 
