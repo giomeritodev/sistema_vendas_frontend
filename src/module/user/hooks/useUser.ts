@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { URL_USER_ALL } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
@@ -7,6 +7,7 @@ import { useUserReducer } from '../../../store/reducers/userReducer/useUserReduc
 
 export const useUser = () => {
   const { users, setUsers } = useUserReducer();
+  const [usersFiltered, setUsersFiltered] = useState(users);
   const { request, loading } = UseRequests();
 
   useEffect(() => {
@@ -15,8 +16,23 @@ export const useUser = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setUsersFiltered([...users]);
+  }, [users]);
+
+  const handleOnChangeSearch = (value: string) => {
+    if (!value) {
+      setUsersFiltered([...users]);
+    } else {
+      setUsersFiltered([
+        ...usersFiltered.filter((user) => user.name.toUpperCase().includes(value.toUpperCase())),
+      ]);
+    }
+  };
+
   return {
-    users,
+    users: usersFiltered,
+    handleOnChangeSearch,
     loading,
   };
 };

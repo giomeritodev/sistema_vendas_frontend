@@ -1,14 +1,19 @@
-import Search from 'antd/es/input/Search';
+import { Input, Spin } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 import Button from '../../../shared/components/buttons/button/button';
 import Screen from '../../../shared/components/screen/Screen';
-import { DisplayFlexJustifyBetween } from '../../../shared/components/styles/display.style';
+import {
+  DisplayFlexJustifyBetween,
+  DisplayFlexJustifyCenter,
+} from '../../../shared/components/styles/display.style';
 import { LimitedContainer } from '../../../shared/components/styles/limited.style';
 import Table from '../../../shared/components/table/Table';
 import { insertMaskInPhone } from '../../../shared/functions/phone';
 import { UserType } from '../../../shared/types/UserType';
 import { useUser } from '../hooks/useUser';
+
+const { Search } = Input;
 
 const columns: ColumnsType<UserType> = [
   {
@@ -39,10 +44,7 @@ const columns: ColumnsType<UserType> = [
 ];
 
 const User = () => {
-  const { users } = useUser();
-  const handleOnChangeSearch = () => {
-    return null;
-  };
+  const { users, handleOnChangeSearch, loading } = useUser();
 
   const handleOnClickInsert = () => {
     return null;
@@ -59,19 +61,27 @@ const User = () => {
         },
       ]}
     >
-      <DisplayFlexJustifyBetween margin="0px 0px 16px 0px">
-        <LimitedContainer width={240}>
-          <Search placeholder="input search text" onSearch={handleOnChangeSearch} enterButton />
-        </LimitedContainer>
+      {loading ? (
+        <DisplayFlexJustifyCenter>
+          <Spin size="large" />
+        </DisplayFlexJustifyCenter>
+      ) : (
+        <>
+          <DisplayFlexJustifyBetween margin="0px 0px 16px 0px">
+            <LimitedContainer width={240}>
+              <Search placeholder="input search text" onSearch={handleOnChangeSearch} enterButton />
+            </LimitedContainer>
 
-        <LimitedContainer width={120}>
-          <Button type="primary" onClick={handleOnClickInsert}>
-            Inserir
-          </Button>
-        </LimitedContainer>
-      </DisplayFlexJustifyBetween>
+            <LimitedContainer width={120}>
+              <Button type="primary" onClick={handleOnClickInsert}>
+                Inserir
+              </Button>
+            </LimitedContainer>
+          </DisplayFlexJustifyBetween>
 
-      <Table columns={columns} dataSource={users} />
+          <Table columns={columns} dataSource={users} />
+        </>
+      )}
     </Screen>
   );
 };
