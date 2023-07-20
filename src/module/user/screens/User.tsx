@@ -1,6 +1,7 @@
 import { Input, Spin } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/button';
 import Screen from '../../../shared/components/screen/Screen';
@@ -15,6 +16,7 @@ import { getUserInfoByToken } from '../../../shared/functions/connection/auth';
 import { insertMaskInPhone } from '../../../shared/functions/phone';
 import { UserType } from '../../../shared/types/UserType';
 import { useUser } from '../hooks/useUser';
+import { UserRouterEnum } from '../routes';
 
 const { Search } = Input;
 
@@ -48,9 +50,10 @@ const columns: ColumnsType<UserType> = [
 
 const User = () => {
   const { users, handleOnChangeSearch, loading } = useUser();
+  const navigate = useNavigate();
 
-  const handleOnClickInsert = () => {
-    return null;
+  const handleOnClickInsertAdmin = () => {
+    navigate(UserRouterEnum.USER_INSERT);
   };
 
   const userToken = useMemo(() => getUserInfoByToken(), []);
@@ -78,11 +81,10 @@ const User = () => {
             </LimitedContainer>
 
             <LimitedContainer width={180}>
-              {userToken?.typeUser === UserTypeEnum.Root && (
-                <Button type="primary" onClick={handleOnClickInsert}>
-                  Inserir Admin
-                </Button>
-              )}
+              {userToken?.typeUser === UserTypeEnum.Root && null}
+              <Button type="primary" onClick={handleOnClickInsertAdmin}>
+                Inserir Admin
+              </Button>
             </LimitedContainer>
           </DisplayFlexJustifyBetween>
 
