@@ -1,5 +1,6 @@
 import { Input, Spin } from 'antd';
 import { ColumnsType } from 'antd/es/table';
+import { useMemo } from 'react';
 
 import Button from '../../../shared/components/buttons/button/button';
 import Screen from '../../../shared/components/screen/Screen';
@@ -9,6 +10,8 @@ import {
 } from '../../../shared/components/styles/display.style';
 import { LimitedContainer } from '../../../shared/components/styles/limited.style';
 import Table from '../../../shared/components/table/Table';
+import { UserTypeEnum } from '../../../shared/enums/userType.enum';
+import { getUserInfoByToken } from '../../../shared/functions/connection/auth';
 import { insertMaskInPhone } from '../../../shared/functions/phone';
 import { UserType } from '../../../shared/types/UserType';
 import { useUser } from '../hooks/useUser';
@@ -50,6 +53,8 @@ const User = () => {
     return null;
   };
 
+  const userToken = useMemo(() => getUserInfoByToken(), []);
+
   return (
     <Screen
       listBreadcrumb={[
@@ -72,10 +77,12 @@ const User = () => {
               <Search placeholder="input search text" onSearch={handleOnChangeSearch} enterButton />
             </LimitedContainer>
 
-            <LimitedContainer width={120}>
-              <Button type="primary" onClick={handleOnClickInsert}>
-                Inserir
-              </Button>
+            <LimitedContainer width={180}>
+              {userToken?.typeUser === UserTypeEnum.Root && (
+                <Button type="primary" onClick={handleOnClickInsert}>
+                  Inserir Admin
+                </Button>
+              )}
             </LimitedContainer>
           </DisplayFlexJustifyBetween>
 
