@@ -14,7 +14,13 @@ import { useProduct } from '../hooks/useProduct';
 const { Search } = Input;
 
 const Product = () => {
-  const { handleOnClickInsert, onSearch, productsFiltered, handleDeleteProduct } = useProduct();
+  const {
+    handleOnClickInsert,
+    onSearch,
+    productsFiltered,
+    handleDeleteProduct,
+    handleEditProduct,
+  } = useProduct();
 
   const columns: ColumnsType<ProductType> = useMemo(
     () => [
@@ -47,7 +53,12 @@ const Product = () => {
         title: 'Action',
         dataIndex: '',
         key: 'x',
-        render: (__, product) => <a onClick={() => handleDeleteProduct(product.id)}>Delete</a>,
+        render: (__, product) => (
+          <>
+            <a onClick={() => handleEditProduct(product.id)}>Editar</a>
+            <a onClick={() => handleDeleteProduct(product.id)}>Delete</a>
+          </>
+        ),
       },
     ],
     [],

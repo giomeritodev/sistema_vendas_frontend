@@ -2,13 +2,18 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { InsertProduct } from '../../../shared/components/dtos/insertProduct.dto';
-import { URL_PRODUCT } from '../../../shared/constants/urls';
+import { URL_PRODUCT, URL_PRODUCT_ID } from '../../../shared/constants/urls';
+import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { connectionAPIPost } from '../../../shared/functions/connection/connectionAPI';
+import { UseRequests } from '../../../shared/hooks/useRequests';
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
+import { useProductReducer } from '../../../store/reducers/productReducer/useProductReducer';
 import { ProductRouterEnum } from '../routes';
 
-export const useInsertProduct = () => {
+export const useInsertProduct = (productId?: string) => {
   const navigate = useNavigate();
+  const { request } = UseRequests();
+  const { product: productReducer, setProduct: setProductReducer } = useProductReducer();
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const { setNotification } = useGlobalReducer();
@@ -30,6 +35,33 @@ export const useInsertProduct = () => {
       setDisabledButton(true);
     }
   }, [product]);
+
+  useEffect(() => {
+    if (productReducer) {
+      setProduct({
+        name: productReducer.name,
+        price: productReducer.price,
+        image: productReducer.image,
+        weight: productReducer.weight,
+        length: productReducer.length,
+        height: productReducer.height,
+        width: productReducer.width,
+        diameter: productReducer.diameter,
+        categoryId: productReducer.category?.id,
+      });
+    }
+  }, [productReducer]);
+
+  useEffect(() => {
+    if (productId) {
+      setProductReducer(undefined);
+      request(
+        URL_PRODUCT_ID.replace('{productId}', `${productId}`),
+        MethodsEnum.GET,
+        setProductReducer,
+      );
+    }
+  }, [productId]);
 
   const onChangeInput = (
     event: React.ChangeEvent<HTMLInputElement>,

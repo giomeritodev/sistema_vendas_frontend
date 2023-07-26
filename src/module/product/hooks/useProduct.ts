@@ -43,10 +43,15 @@ export const useProduct = () => {
     await findAllProducts();
   };
 
+  const handleEditProduct = async (productId: number) => {
+    navigate(ProductRouterEnum.PRODUCT_EDIT.replace(':productId', `${productId}`));
+  };
+
   return {
     handleOnClickInsert,
     onSearch,
     productsFiltered,
     handleDeleteProduct,
+    handleEditProduct,
   };
 };
