@@ -55,7 +55,7 @@ const Product = () => {
         render: (_, product) => <>{convertNumberToMoney(product.price)}</>,
       },
       {
-        title: 'Action',
+        title: 'Ações',
         dataIndex: '',
         width: 240,
         key: 'x',

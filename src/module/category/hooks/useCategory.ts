@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { URL_CATEGORY } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { UseRequests } from '../../../shared/hooks/useRequests';
 import { useCategoryReducer } from '../../../store/reducers/categoryReducer/useCategoryReducer';
+import { CategoryRouterEnum } from '../routes';
 
 export const useCategory = () => {
+  const navigate = useNavigate();
+  const [categoryIdDelete, setCategoryIdDelete] = useState<number | undefined>();
   const { categories, setCategories } = useCategoryReducer();
   const [categoriesFiltered, setCategoriesFiltered] = useState(categories);
   const { request } = UseRequests();
@@ -32,8 +36,27 @@ export const useCategory = () => {
     }
   };
 
+  const handleOnClickInsert = () => {
+    navigate(CategoryRouterEnum.CATEGORY_INSERT);
+  };
+
+  const handleOpenModalDelete = (categoryId: number) => {
+    setCategoryIdDelete(categoryId);
+  };
+
+  const handleCancelModalDelete = () => {
+    setCategoryIdDelete(undefined);
+  };
+
+  const handleConfirmDeleteCategory = () => {};
+
   return {
     categories: categoriesFiltered,
     handleOnChangeSearch,
+    handleOnClickInsert,
+    openModalDelete: !!categoryIdDelete,
+    handleOpenModalDelete,
+    handleCancelModalDelete,
+    handleConfirmDeleteCategory,
   };
 };
