@@ -9,6 +9,7 @@ import { useProductReducer } from '../../../store/reducers/productReducer/usePro
 import { ProductRouterEnum } from '../routes';
 
 export const useProduct = () => {
+  const [productIdDelete, setProductIdDelete] = useState<number | undefined>();
   const { products, setProducts } = useProductReducer();
   const [productsFiltered, setProductsFiltered] = useState<ProductType[]>([]);
   const { request } = UseRequests();
@@ -38,13 +39,21 @@ export const useProduct = () => {
     }
   };
 
-  const handleDeleteProduct = async (productId: number) => {
-    await request(URL_PRODUCT_ID.replace('{productId}', `${productId}`), MethodsEnum.DELETE);
+  const handleDeleteProduct = async () => {
+    await request(URL_PRODUCT_ID.replace('{productId}', `${productIdDelete}`), MethodsEnum.DELETE);
     await findAllProducts();
+    setProductIdDelete(undefined);
   };
 
   const handleEditProduct = async (productId: number) => {
     navigate(ProductRouterEnum.PRODUCT_EDIT.replace(':productId', `${productId}`));
+  };
+
+  const handleOpenModalDelete = (productId: number) => {
+    setProductIdDelete(productId);
+  };
+  const handleCloseModalDelete = () => {
+    setProductIdDelete(undefined);
   };
 
   return {
@@ -53,5 +62,8 @@ export const useProduct = () => {
     productsFiltered,
     handleDeleteProduct,
     handleEditProduct,
+    openModalDelete: !!productIdDelete,
+    handleCloseModalDelete,
+    handleOpenModalDelete,
   };
 };
