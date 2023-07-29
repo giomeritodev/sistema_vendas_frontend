@@ -1,7 +1,9 @@
-import { Button, Input } from 'antd';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
 
+import Button from '../../../shared/components/buttons/button/button';
 import Screen from '../../../shared/components/screen/Screen';
 import { DisplayFlexJustifyBetween } from '../../../shared/components/styles/display.style';
 import { LimitedContainer } from '../../../shared/components/styles/limited.style';
@@ -52,11 +54,22 @@ const Product = () => {
       {
         title: 'Action',
         dataIndex: '',
+        width: 240,
         key: 'x',
         render: (__, product) => (
           <>
-            <a onClick={() => handleEditProduct(product.id)}>Editar</a>
-            <a onClick={() => handleDeleteProduct(product.id)}>Delete</a>
+            <Button
+              margin="0px 16px 0px 0px"
+              onClick={() => handleEditProduct(product.id)}
+              shape="circle"
+              icon={<EditOutlined />}
+            />
+            <Button
+              danger
+              onClick={() => handleDeleteProduct(product.id)}
+              shape="circle"
+              icon={<DeleteOutlined />}
+            />
           </>
         ),
       },

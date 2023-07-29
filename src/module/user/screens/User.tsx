@@ -1,9 +1,10 @@
-import { Input, Spin } from 'antd';
+import { Input } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/button';
+import Loading from '../../../shared/components/loading/Loading';
 import Screen from '../../../shared/components/screen/Screen';
 import {
   DisplayFlexJustifyBetween,
@@ -71,7 +72,7 @@ const User = () => {
     >
       {loading ? (
         <DisplayFlexJustifyCenter>
-          <Spin size="large" />
+          <Loading size="large" />
         </DisplayFlexJustifyCenter>
       ) : (
         <>
