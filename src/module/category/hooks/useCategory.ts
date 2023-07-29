@@ -48,7 +48,9 @@ export const useCategory = () => {
     setCategoryIdDelete(undefined);
   };
 
-  const handleConfirmDeleteCategory = () => {};
+  const handleConfirmDeleteCategory = () => {
+    return null;
+  };
 
   return {
     categories: categoriesFiltered,

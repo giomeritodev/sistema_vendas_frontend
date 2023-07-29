@@ -1,7 +1,6 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Input, Modal, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../shared/components/buttons/button/button';
 import Screen from '../../../shared/components/screen/Screen';
@@ -22,7 +21,6 @@ const Category = () => {
     handleConfirmDeleteCategory,
     openModalDelete,
   } = useCategory();
-  const navigate = useNavigate();
 
   const columns: ColumnsType<CategoryType> = [
     {
