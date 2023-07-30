@@ -20,6 +20,7 @@ const Category = () => {
     handleCancelModalDelete,
     handleConfirmDeleteCategory,
     openModalDelete,
+    handleGoToEditCategory,
   } = useCategory();
 
   const columns: ColumnsType<CategoryType> = [
@@ -51,7 +52,7 @@ const Category = () => {
         <>
           <Button
             margin="0px 16px 0px 0px"
-            onClick={() => null}
+            onClick={() => handleGoToEditCategory(category.id)}
             shape="circle"
             icon={<EditOutlined />}
           />
