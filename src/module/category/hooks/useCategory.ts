@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { URL_CATEGORY } from '../../../shared/constants/urls';
+import { URL_CATEGORY, URL_CATEGORY_ID } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enum';
 import { UseRequests } from '../../../shared/hooks/useRequests';
 import { useCategoryReducer } from '../../../store/reducers/categoryReducer/useCategoryReducer';
@@ -14,9 +14,13 @@ export const useCategory = () => {
   const [categoriesFiltered, setCategoriesFiltered] = useState(categories);
   const { request } = UseRequests();
 
+  const findAllCategories = () => {
+    return request(URL_CATEGORY, MethodsEnum.GET, setCategories);
+  };
+
   useEffect(() => {
     if (!categories || categories.length === 0) {
-      request(URL_CATEGORY, MethodsEnum.GET, setCategories);
+      findAllCategories();
     }
   }, []);
 
@@ -48,8 +52,16 @@ export const useCategory = () => {
     setCategoryIdDelete(undefined);
   };
 
-  const handleConfirmDeleteCategory = () => {
-    return null;
+  const handleConfirmDeleteCategory = async () => {
+    await request(
+      URL_CATEGORY_ID.replace('{categoryId}', `${categoryIdDelete}`),
+      MethodsEnum.DELETE,
+      undefined,
+      undefined,
+      'Categoria deletada!',
+    );
+    findAllCategories();
+    setCategoryIdDelete(undefined);
   };
 
   return {
